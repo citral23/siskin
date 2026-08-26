@@ -18,6 +18,7 @@ modules:
     scripts:
       - install-kernel.sh
       - generate-initramfs.sh
+      - vendor.sh
 
   - type: dnf
     repos:
@@ -83,7 +84,6 @@ modules:
         - system-config-printer
         - tailscale
         - telnet
-        - tuned-ppd
         - uupd
         - v4l-utils
         - vim
@@ -125,7 +125,12 @@ modules:
         - greetd
         - sshd
         - tailscaled
+        - armada-powerd
+        - armada-device-quirks
+        - armada-bootimg-sync
+      masked:
+        - irqbalance
 
   - type: kargs
     kargs:
-      - mitigations=off split_lock_detect=off
+      - mitigations=off split_lock_detect=off rootflags=noatime,compress=zstd:1 console=tty0 allow_mismatched_32bit_el0 fw_devlink.strict=1 pcie_ports=compat psi=1 cgroup_disable=pressure cgroup.memory=nokmem,nosocket cpufreq.default_governor=schedutil swiotlb=8192 console=ttyS0
