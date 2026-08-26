@@ -1,45 +1,131 @@
 ---
-# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
-# image will be published to ghcr.io/<user>/<name>
 name: siskin
-# description will be included in the image's metadata
-description: This is my personal OS image.
+description: test
 
-# the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/silverblue-main
-image-version: latest # You can pin to a specific version of Fedora as well
+base-image: ghcr.io/blue-build/base-images/fedora-base
+image-version: latest
 
-# module configuration, executed in order
-# you can include multiple instances of the same module
 modules:
+  - type: containerfile
+    snippets:
+      - COPY --from=ghcr.io/armada-os/armada-packages/kernel:latest /kernel /tmp/kernel
   - type: files
     files:
       - source: system
-        destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
+        destination: /
+
+  - type: script
+    scripts:
+      - install-kernel.sh
+      - generate-initramfs.sh
 
   - type: dnf
     repos:
-      copr:
-        - atim/starship
+      nonfree: negativo17
+      files:
+        - https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+        - https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo
+        - https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+      keys:
+        - https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
     install:
       packages:
-        - micro
-        - starship
+        - adw-gtk3-theme 
+        - bat
+        - brave-origin
+        - brightnessctl
+        - btop
+        - cargo
+        - cava
+        - chezmoi
+        - cliphist
+        - ddcutil
+        - dialog
+        - eog
+        - fastfetch
+        - fex-emu
+        - fex-emu-rootfs-fedora
+        - fex-emu-thunks
+        - fex-emu-utils
+        - fira-code-fonts
+        - freerdp
+        - fuse-libs
+        - gamescope
+        - gnome-calculator
+        - gnome-clocks
+        - gnome-disk-image-mounter
+        - gnome-disks
+        - gnome-keyring-pam
+        - gparted
+        - greetd
+        - gvfs-archive
+        - gvfs-gphoto2
+        - jetbrainsmono-nerd-fonts
+        - kitty
+        - lm_sensors
+        - mangohud
+        - mediawriter
+        - mpv
+        - nautilus
+        - nethogs
+        - NetworkManager-openconnect
+        - NetworkManager-openvpn
+        - niri
+        - nmap-ncat
+        - noctalia-nightly
+        - noctalia-greeter
+        - openvpn-otp
+        - papers
+        - powertop
+        - python3-pip
+        - qt6ct
+        - screen
+        - system-config-printer
+        - tailscale
+        - telnet
+        - tuned-ppd
+        - uupd
+        - v4l-utils
+        - vim
+        - vulkan-tools
+        - wayvnc
+        - wlsunset
+        - xdotool
+        - xwininfo
+        - yad
+        - yazi
+        - zed
+
     remove:
       packages:
-        # example: removing firefox (in favor of the flatpak)
-        # "firefox" is the main package, "firefox-langpacks" is a dependency
-        - firefox
-        - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
+        - htop
 
   - type: default-flatpaks
     configurations:
-      - notify: true # Send notification after install/uninstall is finished (true/false)
+      - notify: false
         scope: system
-        # If no repo information is specified, Flathub will be used by default
-        install: # system flatpaks we want all users to have and not remove
-          - org.mozilla.firefox
-          - org.gnome.Loupe
-      - scope: user # Also add Flathub user repo, but no user packages
+        install:
+          - com.ranfdev.DistroShelf
+          - io.github.flattool.Ignition
+          - org.gtk.Gtk3theme.adw-gtk3
+          - org.gtk.Gtk3theme.adw-gtk3-dark
+          - org.remmina.Remmina
+          - page.codeberg.libre_menu_editor.LibreMenuEditor
+          - io.github.kolunmi.Bazaar
+          - io.missioncenter.MissionCenter
+          - com.github.tchx84.Flatseal
+          - org.atheme.audacious
+          - page.tesk.Refine
 
-  - type: signing # this sets up the proper policy & signing files for signed images to work fully
+  - type: signing
+
+  - type: systemd
+    system:
+      enabled:
+        - greetd
+        - sshd
+        - tailscaled
+
+  - type: kargs
+    kargs:
+      - mitigations=off split_lock_detect=off
