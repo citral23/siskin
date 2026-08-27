@@ -3,7 +3,7 @@ set -euxo pipefail
 
 # useradd misses groups defined in /usr/lib/group.
 systemd-sysusers
-for group in wheel video render input audio; do
+for group in wheel video render input audio seat; do
     gid=$(getent group "$group" | cut -d: -f3)
     [[ -n "$gid" ]] || { echo "ERROR: missing group: $group" >&2; exit 1; }
     if ! grep -q "^${group}:" /etc/group; then
