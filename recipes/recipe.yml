@@ -17,8 +17,10 @@ modules:
   - type: script
     scripts:
       - install-kernel.sh
-      - generate-initramfs.sh
       - vendor.sh
+      - create-user.sh
+      - generate-initramfs.sh
+      
 
   - type: dnf
     repos:
