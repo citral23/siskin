@@ -8,8 +8,8 @@ for group in wheel video render input audio; do
     [[ -n "$gid" ]] || { echo "ERROR: missing group: $group" >&2; exit 1; }
     if ! grep -q "^${group}:" /etc/group; then
         echo "${group}:x:${gid}:christophe" >> /etc/group
-    elif ! id -nG armada | grep -qw "$group"; then
-        gpasswd -a armada "$group"
+    elif ! id -nG christophe | grep -qw "$group"; then
+        gpasswd -a christophe "$group"
     fi
 done
 
