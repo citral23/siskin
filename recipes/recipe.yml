@@ -79,7 +79,6 @@ modules:
         - noctalia-greeter
         - openvpn-otp
         - papers
-        - polkit-gnome
         - powertop
         - python3-pip
         - qt6ct
@@ -93,6 +92,7 @@ modules:
         - wayvnc
         - wlsunset
         - xdotool
+        - xfce-polkit
         - xwininfo
         - yad
         - yazi
