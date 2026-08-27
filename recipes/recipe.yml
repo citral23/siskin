@@ -89,7 +89,6 @@ modules:
         - telnet
         - uupd
         - v4l-utils
-        - vim
         - vulkan-tools
         - wayvnc
         - wlsunset
