@@ -99,6 +99,7 @@ modules:
     remove:
       packages:
         - htop
+        - power-profiles-daemon
 
   - type: default-flatpaks
     configurations:
@@ -130,6 +131,11 @@ modules:
         - armada-bootimg-sync
       masked:
         - irqbalance
+        - bootloader-update
+        - systemd-suspend
+        - systemd-hibernate
+        - systemd-hybrid-sleep
+        - systemd-suspend-then-hibernate
 
   - type: kargs
     kargs:
