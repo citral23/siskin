@@ -79,6 +79,7 @@ modules:
         - noctalia-greeter
         - openvpn-otp
         - papers
+        - polkit-gnome
         - powertop
         - python3-pip
         - qt6ct
