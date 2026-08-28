@@ -1,6 +1,6 @@
 ---
 name: siskin
-description: test
+description: niri desktop for armada devices
 
 base-image: ghcr.io/blue-build/base-images/fedora-base
 image-version: latest
