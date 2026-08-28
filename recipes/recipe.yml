@@ -83,6 +83,7 @@ modules:
         - python3-pip
         - qt6ct
         - screen
+        - seatd
         - system-config-printer
         - tailscale
         - telnet
@@ -128,6 +129,7 @@ modules:
         - greetd
         - sshd
         - tailscaled
+        - seatd
         - armada-powerd
         - armada-device-quirks
         - armada-bootimg-sync
