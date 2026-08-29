@@ -18,3 +18,5 @@ chmod 0700 /var/home/christophe
 chown -R christophe:christophe /var/home/christophe
 
 echo 'christophe:christophe' | chpasswd
+
+usermod --add-subuid 100000-165535 --add-subgid 100000-165535 christophe
