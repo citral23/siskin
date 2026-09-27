@@ -137,11 +137,10 @@ modules:
       masked:
         - irqbalance
         - bootloader-update
-        - systemd-suspend
         - systemd-hibernate
         - systemd-hybrid-sleep
         - systemd-suspend-then-hibernate
 
   - type: kargs
     kargs:
-      - mitigations=off split_lock_detect=off rootflags=noatime,compress=zstd:1 console=tty0 allow_mismatched_32bit_el0 fw_devlink.strict=1 pcie_ports=compat psi=1 cgroup_disable=pressure cgroup.memory=nokmem,nosocket cpufreq.default_governor=schedutil swiotlb=8192 console=ttyS0
+      - mitigations=off split_lock_detect=off rootflags=noatime,compress=zstd:1 console=tty0 allow_mismatched_32bit_el0 fw_devlink.strict=1 pcie_ports=compat psi=1 cgroup_disable=pressure cgroup.memory=nokmem,nosocket swiotlb=8192 console=ttyS0
