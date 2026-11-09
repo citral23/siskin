@@ -95,6 +95,7 @@ modules:
         - wlsunset
         - xdotool
         - xfce-polkit
+        - xwayland-satellite
         - xwininfo
         - yad
         - yazi
@@ -103,10 +104,6 @@ modules:
       packages:
         - htop
         - power-profiles-daemon
-    replace:
-      - from-repo: terra
-        packages:
-          - xwayland-satellite
 
   - type: default-flatpaks
     configurations:
